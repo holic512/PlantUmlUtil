@@ -2,32 +2,29 @@
 
 ![Logo](res/logo.png)
 
-PlantUmlUtil is a Python + PyQt6 GUI for PlantUML. It provides real‑time PNG/SVG preview, quality controls (DPI/scale), clipboard copy, and file saving. It ships with `jar/plantuml.jar` and uses JPype to start the JVM and call PlantUML APIs.
+A modern Python + PyQt6 desktop app for PlantUML with real‑time PNG/SVG preview, quality controls, clipboard copy, and file export. It bundles `jar/plantuml.jar` and uses JPype to start the JVM and call PlantUML APIs.
 
 ---
 
-## Overview
-PlantUmlUtil is a desktop application for authoring and previewing PlantUML diagrams with a clean UI and helpful quality controls.
-
-## Features
-- Real‑time preview (PNG/SVG) with non‑blocking async rendering
-- Quality options: `DPI` (PNG only) and `scale`
-- Mouse‑wheel zoom (25%–600%)
-- Copy to clipboard (PNG or SVG text) and save to files
+## Highlights
+- Instant preview (PNG/SVG) with non‑blocking async rendering
+- Quality controls: `DPI` (PNG only) and `scale`
+- Smooth mouse‑wheel zoom (25%–600%)
+- Copy to clipboard (PNG image or SVG text) and save to files
 - Open `.puml/.plantuml/.iuml` files
-- Auto wrap `@startuml/@enduml` if missing
-- Heuristic detection for PUML texts (arrows, `skinparam`, `class`, etc.)
-- QSS‑styled UI; logs written to `logs/app.log`
+- Auto‑wrap `@startuml`/`@enduml` if missing
+- Heuristic detection for PlantUML texts (arrows, `skinparam`, `class`, etc.)
+- Styled UI via QSS; logs written to `logs/app.log`
 
-## Tech Stack & Environment
-- Language: Python 3.10+
-- Framework: PyQt6 (desktop GUI)
-- Rendering: PlantUML (`jar/plantuml.jar`) via JPype/JVM
-- OS: Windows (developed and verified on Windows)
+## Tech Stack
+- Python 3.10+
+- PyQt6 (desktop GUI)
+- PlantUML (`jar/plantuml.jar`) via JPype/JVM
+- Windows (developed and verified)
 
 ## Requirements
 - Python ≥ 3.10
-- Java runtime (JRE/JDK 8+); JPype must be able to locate `jvm.dll`
+- JRE/JDK 8+ (JPype must be able to locate `jvm.dll`)
 - Python packages: `PyQt6`, `JPype1`
 
 ## Installation
@@ -41,11 +38,11 @@ python main.py
 ```
 
 ## Packaging (PyInstaller)
-- Option A: use the provided `main.spec` (Windows)
+- Option A: spec file (Windows)
   ```bash
   pyinstaller main.spec
   ```
-  Includes data files (`jar/plantuml.jar`, `res/logo.png`, `ui/style.qss`) and hidden imports (`PyQt6.QtSvgWidgets`, `PyQt6.QtSvg`) with executable name `PlantUmlUtil`.
+  Includes data files (`jar/plantuml.jar`, `res/logo.png`, `ui/style.qss`) and hidden imports (`PyQt6.QtSvgWidgets`, `PyQt6.QtSvg`); executable name: `PlantUmlUtil`.
 - Option B: CLI (Windows)
   ```bash
   pyinstaller \
@@ -68,7 +65,7 @@ python main.py
 ## Screenshot
 ![Screenshot](docx/截图.png)
 
-## Structure (short)
+## Project Structure
 ```
 jar/                # PlantUML engine JAR
 res/logo.png        # App icon
@@ -80,11 +77,10 @@ main.py             # Entry point
 
 ## Troubleshooting
 - JVM not found: install JRE/JDK and ensure JPype can discover it.
-- SVG preview unavailable: the app falls back to PNG when `PyQt6.QtSvgWidgets` isn’t available.
-- Render failures: verify PlantUML syntax or explicitly add `@startuml/@enduml`.
+- SVG preview unavailable: automatically falls back to PNG when `PyQt6.QtSvgWidgets` isn’t available.
+- Render failures: verify PlantUML syntax or explicitly add `@startuml`/`@enduml`.
 
 ## App Icon
 The application and window icon are set from `res/logo.png` in `main.py`.
 
 > Chinese documentation: see `README.md`.
-

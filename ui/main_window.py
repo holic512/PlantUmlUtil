@@ -437,6 +437,30 @@ class MainWindow(QMainWindow):
                 QMessageBox.critical(self, "打开错误", str(e))
 
     def closeEvent(self, event: QCloseEvent) -> None:
+        try:
+            self._debounce.stop()
+        except Exception:
+            pass
+        try:
+            if self._render_worker and self._render_worker.isRunning():
+                try:
+                    self._render_worker.requestInterruption()
+                except Exception:
+                    pass
+        except Exception:
+            pass
+        try:
+            if hasattr(self, "_jar_loader") and self._jar_loader and self._jar_loader.isRunning():
+                try:
+                    self._jar_loader.requestInterruption()
+                except Exception:
+                    pass
+        except Exception:
+            pass
+        try:
+            self.service.force_terminate()
+        except Exception:
+            pass
         event.accept()
 
     def _start_resource_loading(self) -> None:

@@ -154,6 +154,20 @@ class PlantUMLService:
 
         return RenderResult(fmt=fmt, file_path=final_path, bytes_data=data, svg_text=svg_text)
 
+    def shutdown(self) -> None:
+        try:
+            if jpype.isJVMStarted():
+                jpype.shutdownJVM()
+        except Exception as e:
+            self._logger.warning("Failed to shutdown JVM: %s", e)
+
+    def force_terminate(self) -> None:
+        try:
+            if jpype.isJVMStarted():
+                JClass("java.lang.Runtime").getRuntime().halt(0)
+        except Exception:
+            os._exit(0)
+
 
 class _LRUCache:
     def __init__(self, maxsize: int = 32):

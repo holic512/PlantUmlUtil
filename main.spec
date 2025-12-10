@@ -8,11 +8,12 @@ a = Analysis(
     datas=[
         ('jar/plantuml.jar', 'jar'),
         ('res/logo.png', 'res'),
+        ('res/favicon.ico', 'res'),
         ('ui/style.qss', 'ui'),
     ],
-    hiddenimports=['PyQt6.QtSvgWidgets', 'PyQt6.QtSvg'],
+    hiddenimports=[],
     hookspath=[],
-    hooksconfig={},
+    hooksconfig={'PyQt6.QtCore': {'plugins': ['platforms', 'imageformats']}},
     runtime_hooks=[],
     excludes=[
         'PyQt6.QtTest',
@@ -44,6 +45,8 @@ a = Analysis(
         'PyQt6.QtPdf',
         'PyQt6.QtPdfWidgets',
         'PyQt6.QtCharts',
+        'PyQt6.QtSvgWidgets',
+        'PyQt6.QtSvg',
         'PyQt6.uic',
     ],
     noarchive=False,
@@ -55,12 +58,13 @@ exe = EXE(
     pyz,
     a.scripts,
     a.binaries,
+    a.zipfiles,
     a.datas,
     [],
     name='PlantUmlUtil',
     debug=False,
     bootloader_ignore_signals=False,
-    strip=True,
+    strip=False,
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
@@ -70,15 +74,6 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon='res/logo.ico',
-)
-
-coll = COLLECT(
-    exe,
-    a.binaries,
-    a.datas,
-    strip=True,
-    upx=True,
-    upx_exclude=[],
-    name='PlantUmlUtil'
+    icon='res/favicon.ico',
+    version='version_file.txt',
 )
